@@ -1,0 +1,12 @@
+-- -- Add plugins
+-- vim.pack.add({
+--   { src = "https://github.com/neovim/nvim-lspconfig" },
+--   { src = "https://github.com/echasnovski/mini.pick" },
+--   { src = "https://github.com/stevearc/oil.nvim" },
+-- })
+--
+-- nvim-lspconfig = require('nvim-lspconfig')
+--
+-- -- Setup lua_ls using lspconfig
+-- vim.lsp.enable({ 'luals' })
+

@@ -16,6 +16,8 @@ require("keymaps")
 -- Basic autocommands
 require("autocmds")
 
+require("plugins")
+
 -- -- Command-line completion
 -- vim.opt.wildmenu = true
 -- vim.opt.wildmode = "longest:full,full"
