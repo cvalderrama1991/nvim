@@ -61,6 +61,7 @@ vim.opt.mouse = "a"                                -- Enable mouse support
 vim.opt.clipboard:append("unnamedplus")            -- Use system clipboard
 vim.opt.modifiable = true                          -- Allow buffer modifications
 vim.opt.encoding = "UTF-8"                         -- Set encoding
+-- vim.opt.fileeencoding = "utf-8"
 
 -- Cursor settings
 -- vim.opt.guicursor = "n-v-c:block,i-ci-ve:block,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"

@@ -2,6 +2,9 @@
 -- title : Suckless NeoVim Config
 -- author: Radley E. Sidwell-lewis
 -- ================================================================================================
+vim.g.mapleader = " "                              -- Set leader key to space
+vim.g.maplocalleader = " "                         -- Set local leader key (NEW)
+
 
 -- theme & transparency
 vim.cmd.colorscheme("retrobox")
@@ -9,14 +12,36 @@ vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
 
--- Basic settings
+-- ~/.config/nvim/init.lua
+
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+-- Load plugins
+require("lazy").setup("plugins")
+
+-- Load options
 require("options")
--- Key mappings
+
+-- Load keymaps
 require("keymaps")
--- Basic autocommands
+
+-- Load autocmds
 require("autocmds")
 
-require("plugins")
+-- Load friendly snippets (this could also be moved to a snippets.lua if desired)
+require("luasnip.loaders.from_vscode").lazy_load()
 
 -- -- Command-line completion
 -- vim.opt.wildmenu = true

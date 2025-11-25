@@ -1,6 +1,6 @@
 -- Key mappings
-vim.g.mapleader = " "                              -- Set leader key to space
-vim.g.maplocalleader = " "                         -- Set local leader key (NEW)
+vim.g.mapleader = " "      -- Set leader key to space
+vim.g.maplocalleader = " " -- Set local leader key (NEW)
 
 -- Normal mode mappings
 vim.keymap.set("n", "<leader>c", ":nohlsearch<CR>", { desc = "Clear search highlights" })
@@ -58,12 +58,26 @@ vim.keymap.set("n", "<leader>rc", ":e ~/.config/nvim/init.lua<CR>", { desc = "Ed
 
 -- Copy Full File-Path
 vim.keymap.set("n", "<leader>pa", function()
-	local path = vim.fn.expand("%:p")
-	vim.fn.setreg("+", path)
-	print("file:", path)
+  local path = vim.fn.expand("%:p")
+  vim.fn.setreg("+", path)
+  print("file:", path)
 end)
 -- ============================================================================
--- Plugin keymaps 
+-- Plugin keymaps
 -- ============================================================================
-vim.keymap.set('n','<leader>lf', vim.lsp.buf.format)
+vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
+
+-- Automatically close brackets, parethesis and quotes
+-- vim.keymap.set("i", "'", "''<left>")
+-- vim.keymap.set("i", "\"", "\"\"<left>")
+-- vim.keymap.set("i", "(", "()<left>")
+-- vim.keymap.set("i", "[", "[]<left>")
+-- vim.keymap.set("i", "{", "{}<left>")
+-- vim.keymap("i", "{;", "{};<left><left>")
+
+
+
+
+
+
 

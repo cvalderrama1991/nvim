@@ -8,6 +8,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     vim.highlight.on_yank()
   end,
 })
+
 --
 -- -- Return to last edit position when opening files
 -- vim.api.nvim_create_autocmd("BufReadPost", {
