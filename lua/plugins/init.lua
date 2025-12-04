@@ -44,7 +44,7 @@ return {
     },
 
     -- 3. Colorscheme
-    {'folke/tokyonight.nvim', lazy = false, priority = 1000, opts = {style = "moon"}},
+    -- {'folke/tokyonight.nvim', lazy = false, priority = 1000, opts = {style = "moon"}},
 
     -- 4. TreeSitter and Text Objects
     {
