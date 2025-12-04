@@ -32,14 +32,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 --   end,
 -- })
 --
--- vim.api.nvim_create_autocmd("FileType", {
---   group = augroup,
---   pattern = { "javascript", "typescript", "json", "html", "css" },
---   callback = function()
---     vim.opt_local.tabstop = 2
---     vim.opt_local.shiftwidth = 2
---   end,
--- })
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup,
+  pattern = { "javascript", "typescript", "json", "html", "css" },
+  callback = function()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
+  end,
+})
 --
 -- -- Auto-close terminal when process exits
 -- vim.api.nvim_create_autocmd("TermClose", {

@@ -1,4 +1,4 @@
--- Key mappings
+--v Key mappings
 vim.g.mapleader = " "      -- Set leader key to space
 vim.g.maplocalleader = " " -- Set local leader key (NEW)
 
@@ -74,10 +74,3 @@ vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 -- vim.keymap.set("i", "[", "[]<left>")
 -- vim.keymap.set("i", "{", "{}<left>")
 -- vim.keymap("i", "{;", "{};<left><left>")
-
-
-
-
-
-
-
