@@ -1,9 +1,6 @@
 vim.g.mapleader = " "                              -- Set leader key to space
 vim.g.maplocalleader = " "                         -- Set local leader key (NEW)
 
--- Theme goes after this
-
-
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -22,7 +19,17 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
-require("lazy").setup("plugins")
+require("lazy").setup({
+  spec = {
+    -- import your plugins
+    { import = "plugins" },
+  },
+  -- Configure any other settings here. See the documentation for more details.
+  -- colorscheme that will be used when installing plugins.
+  -- install = { colorscheme = { "habamax" } },
+  -- automatically check for plugin updates
+  checker = { enabled = true },
+})
 
 -- Load Options
 require("core.options")
@@ -32,15 +39,3 @@ require("core.keymaps")
 
 -- Load Autocommands
 require("core.autocmds")
-
-
-  -- spec = {
-  --   -- import your plugins
-  --   { import = "plugins" },
-  -- },
-  -- -- Configure any other settings here. See the documentation for more details.
-  -- -- colorscheme that will be used when installing plugins.
-  -- install = { colorscheme = { "habamax" } },
-  -- -- automatically check for plugin updates
-  -- checker = { enabled = true },
--- })
