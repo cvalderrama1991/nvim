@@ -1,7 +1,3 @@
---v Key mappings
-vim.g.mapleader = " "      -- Set leader key to space
-vim.g.maplocalleader = " " -- Set local leader key (NEW)
-
 -- Normal mode mappings
 vim.keymap.set("n", "<leader>c", ":nohlsearch<CR>", { desc = "Clear search highlights" })
 
@@ -42,15 +38,8 @@ vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 
--- Quick file navigation
-vim.keymap.set("n", "<leader>e", ":Explore<CR>", { desc = "Open file explorer" })
-vim.keymap.set("n", "<leader>ff", ":find ", { desc = "Find file" })
-
 -- Better J behavior
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
-
--- Quick config editing
-vim.keymap.set("n", "<leader>rc", ":e ~/.config/nvim/init.lua<CR>", { desc = "Edit config" })
 
 -- ============================================================================
 -- USEFUL FUNCTIONS
@@ -66,11 +55,3 @@ end)
 -- Plugin keymaps
 -- ============================================================================
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
-
--- Automatically close brackets, parethesis and quotes
--- vim.keymap.set("i", "'", "''<left>")
--- vim.keymap.set("i", "\"", "\"\"<left>")
--- vim.keymap.set("i", "(", "()<left>")
--- vim.keymap.set("i", "[", "[]<left>")
--- vim.keymap.set("i", "{", "{}<left>")
--- vim.keymap("i", "{;", "{};<left><left>")
