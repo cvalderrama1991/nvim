@@ -41,17 +41,9 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 -- Better J behavior
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 
--- ============================================================================
--- USEFUL FUNCTIONS
--- ============================================================================
-
 -- Copy Full File-Path
 vim.keymap.set("n", "<leader>pa", function()
   local path = vim.fn.expand("%:p")
   vim.fn.setreg("+", path)
   print("file:", path)
 end)
--- ============================================================================
--- Plugin keymaps
--- ============================================================================
-vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
