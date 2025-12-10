@@ -1,3 +1,5 @@
+-- Enter normal mode by pressing Ctrl+[
+-- vim.keymap.set({"i", "v"}, "<C-[", "<Esc>", { desc = "Normal mode" })
 -- Normal mode mappings
 vim.keymap.set("n", "<leader>c", ":nohlsearch<CR>", { desc = "Clear search highlights" })
 
