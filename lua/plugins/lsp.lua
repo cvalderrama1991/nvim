@@ -16,7 +16,8 @@ return {
             },
           },
         },
-        ts_ls = {},
+        ts_ls = {
+        },
         eslint = {},
         tailwindcss = {},
       },
@@ -38,7 +39,7 @@ return {
         --underline = true
       })
 
-      vim.lsp.enable("lua_ls")
+      vim.lsp.enable("lua_ls", "ts_ls", "cssls", "html")
     end
   }
 }
