@@ -36,6 +36,13 @@ vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
 vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
+-- Use "D" for the Super key in Linux
+vim.keymap.set("n", "<D-j>", ":m .+1<CR>==", { desc = "Move line down" })
+vim.keymap.set("n", "<D-k>", ":m .-2<CR>==", { desc = "Move line up" })
+vim.keymap.set("v", "<D-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+vim.keymap.set("v", "<D-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+vim.keymap.set("n", "<D-h>", ":echo 'Super works!'<CR>")
+
 -- Better indenting in visual mode
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
