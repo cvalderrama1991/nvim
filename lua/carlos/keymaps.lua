@@ -36,7 +36,7 @@ vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
 vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
--- Use "D" for the Super key in Linux
+-- Move lines up/down Use "D" for the Super key in Linux
 vim.keymap.set("n", "<D-j>", ":m .+1<CR>==", { desc = "Move line down" })
 vim.keymap.set("n", "<D-k>", ":m .-2<CR>==", { desc = "Move line up" })
 vim.keymap.set("v", "<D-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })

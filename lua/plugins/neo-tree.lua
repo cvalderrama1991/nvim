@@ -10,7 +10,8 @@ return {
 
     cmd = "Neotree",
     keys = {
-      { "<leader>e", ":Neotree toggle<CR>", desc = "Toggle Neo-tree" },
+      { "<leader>e",  ":Neotree toggle<CR>", desc = "Toggle Neo-tree" },
+      { "<leader>ef", ":Neotree focus<CR>",  desc = "Jumb to Neo-tree" }
     },
 
     opts = {
@@ -24,4 +25,3 @@ return {
     lazy = false, -- neo-tree will lazily load itself
   }
 }
-
