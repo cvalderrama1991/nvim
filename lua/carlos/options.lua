@@ -70,3 +70,7 @@ vim.opt.foldlevel = 99                              -- Start with all folds open
 -- Split behavior
 vim.opt.splitbelow = true -- New horizontal splits open below current window
 vim.opt.splitright = true -- New vertical splits open to the right of current window
+
+-- Basic spell checking
+vim.opt.spell = true
+vim.opt.spelllang = { "en_us" }

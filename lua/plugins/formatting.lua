@@ -1,31 +1,24 @@
 return {
   {
-
     "stevearc/conform.nvim",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       local conform = require("conform")
 
       conform.setup({
-        fortmatters = {
-          -- 1. Base definition for Prettier (Default settings)
-          -- This will be used for JSON, HTML, etc., keeping double quotes.
-          prettier = {},
-
-          -- 2. Custom definition for JS/TS files
+        formatters = {
           prettier_js = {
-            -- This tells conform to run the 'prettier' executable
             inherit = "prettier",
-
-            -- This adds the single-quote flag ONLY when 'prettier_js' is called
-            prepend_args = { "--single-quote" },
+            prepend_args = { "--single-quote", "--semi" },
           },
         },
+
         formatters_by_ft = {
-          javascript = { "prettierd", "prettier", stop_after_first = true },
-          javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-          typescript = { "prettierd", "prettier", stop_after_first = true },
-          typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+          javascript = { "prettier_js" },
+          javascriptreact = { "prettier_js" },
+          typescript = { "prettier_js" },
+          typescriptreact = { "prettier_js" },
+          -- Standard prettier/prettierd for others
           css = { "prettierd", "prettier", stop_after_first = true },
           html = { "prettierd", "prettier", stop_after_first = true },
           json = { "prettierd", "prettier", stop_after_first = true },
@@ -34,8 +27,9 @@ return {
           zsh = { "shfmt" },
           sh = { "shfmt" },
           bash = { "shfmt" },
-          markdown = { "prettierd", "prettier", stop_after_first = true }
+          markdown = { "prettier", "injected" },
         },
+
         format_on_save = {
           lsp_fallback = true,
           async = false,
