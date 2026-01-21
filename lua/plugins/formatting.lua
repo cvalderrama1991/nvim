@@ -31,7 +31,6 @@ return {
           json = { "prettierd", "prettier", stop_after_first = true },
           lua = { "stylua" },
           python = { "isort", "black" },
-          json = { "prettierd", "prettier", stop_after_first = true },
           zsh = { "shfmt" },
           sh = { "shfmt" },
           bash = { "shfmt" },
