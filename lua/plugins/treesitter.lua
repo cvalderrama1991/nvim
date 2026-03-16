@@ -18,6 +18,7 @@ return {
           "lua",
           "markdown",
           "python",
+          "rust",
           "sql",
           "tsx",
           "typescript",

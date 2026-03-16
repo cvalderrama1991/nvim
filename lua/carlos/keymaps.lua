@@ -1,5 +1,6 @@
--- Enter normal mode by pressing Ctrl+[
--- vim.keymap.set({"i", "v"}, "<C-[", "<Esc>", { desc = "Normal mode" })
+vim.g.mapleader = " "      -- Set leader key to space
+vim.g.maplocalleader = " " -- Set local leader key (NEW)
+
 -- Normal mode mappings
 vim.keymap.set("n", "<leader>c", ":nohlsearch<CR>", { desc = "Clear search highlights" })
 
@@ -16,12 +17,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 vim.keymap.set("n", "<leader>bn", ":bnext<CR>", { desc = "Next buffer" })
 vim.keymap.set("n", "<leader>bp", ":bprevious<CR>", { desc = "Previous buffer" })
 
--- Better window navigation
-vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
-
 -- Splitting & Resizing
 vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", { desc = "Split window vertically" })
 vim.keymap.set("n", "<leader>sh", ":split<CR>", { desc = "Split window horizontally" })
@@ -30,13 +25,19 @@ vim.keymap.set("n", "<C-Down>", ":resize -2<CR>", { desc = "Decrease window heig
 vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
 vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { desc = "Increase window width" })
 
--- Move lines up/down
+-- Better window navigation
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
+
+-- Move lines up or down using the option key on MacOS
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
 vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
 vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
--- Move lines up/down Use "D" for the Super key in Linux
+-- Move lines up or down using Super key(D) on Linux
 vim.keymap.set("n", "<D-j>", ":m .+1<CR>==", { desc = "Move line down" })
 vim.keymap.set("n", "<D-k>", ":m .-2<CR>==", { desc = "Move line up" })
 vim.keymap.set("v", "<D-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
@@ -50,42 +51,38 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 -- Better J behavior
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 
--- Copy Full File-Path
+-- Copy full current file path
 vim.keymap.set("n", "<leader>pa", function()
   local path = vim.fn.expand("%:p")
   vim.fn.setreg("+", path)
   print("file:", path)
 end)
 
-
--- formatting keymaps
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+  group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
   callback = function(ev)
     vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+    -- local opts = { buffer = ev.buf }
 
-    -- Buffer local mappings
-    local opts = { buffer = ev.buf }
+    -- ===== LSP navigation =====
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
+    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "List references" })
+    vim.keymap.set("n", "<leader><space>", vim.lsp.buf.hover, { desc = "Show hover documentation" })
 
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-    vim.keymap.set("n", "<leader><space>", vim.lsp.buf.hover, opts)
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
+    -- ===== LSP code actions & refactoring =====
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
+    vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions / refactorings" })
 
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-
-    vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-
+    -- ===== Formatting =====
     vim.keymap.set("n", "<leader>f", function()
       vim.lsp.buf.format({ async = true })
-    end, opts)
+    end, { desc = "Format buffer (async)" })
 
-    -- Diagnostic float
+    -- ===== Diagnostics =====
     vim.keymap.set("n", "<leader>d", function()
-      vim.diagnostic.open_float({
-        border = "rounded",
-      })
-    end, opts)
+      vim.diagnostic.open_float({ border = "rounded" })
+    end, { desc = "Show diagnostics in floating window" })
   end,
 })
