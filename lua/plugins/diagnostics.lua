@@ -35,3 +35,8 @@ return {
     },
   },
 }
+
+-- ===== Diagnostics =====
+-- vim.keymap.set("n", "<leader>d", function()
+-- vim.diagnostic.open_float({ border = "rounded" })
+-- end, { desc = "Show diagnostics in floating window" })

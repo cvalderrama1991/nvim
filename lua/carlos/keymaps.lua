@@ -56,14 +56,13 @@ vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position"
 vim.keymap.set("n", "<leader>pa", function()
   local path = vim.fn.expand("%:p")
   vim.fn.setreg("+", path)
-  print("file:", path)
-end)
+  print("Copy path:", path)
+end, { desc = "Copy absolute path" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
   callback = function(ev)
     vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-    -- local opts = { buffer = ev.buf }
 
     -- ===== LSP navigation =====
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
@@ -71,19 +70,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
     vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "List references" })
     vim.keymap.set("n", "<leader><space>", vim.lsp.buf.hover, { desc = "Show hover documentation" })
-
-    -- ===== LSP code actions & refactoring =====
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
-    vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions / refactorings" })
-
-    -- ===== Formatting =====
-    vim.keymap.set("n", "<leader>f", function()
-      vim.lsp.buf.format({ async = true })
-    end, { desc = "Format buffer (async)" })
-
-    -- ===== Diagnostics =====
-    vim.keymap.set("n", "<leader>d", function()
-      vim.diagnostic.open_float({ border = "rounded" })
-    end, { desc = "Show diagnostics in floating window" })
   end,
 })

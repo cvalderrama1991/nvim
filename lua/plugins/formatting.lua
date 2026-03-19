@@ -18,7 +18,6 @@ return {
           javascriptreact = { "prettier_js" },
           typescript = { "prettier_js" },
           typescriptreact = { "prettier_js" },
-          -- Standard prettier/prettierd for others
           css = { "prettierd", "prettier", stop_after_first = true },
           html = { "prettierd", "prettier", stop_after_first = true },
           json = { "prettierd", "prettier", stop_after_first = true },
@@ -36,6 +35,15 @@ return {
           timeout_ms = 500,
         },
       })
+
+      -- The manual trigger keymap
+      vim.keymap.set({ "n", "v" }, "<leader>mp", function()
+        conform.format({
+          lsp_fallback = true,
+          async = false,
+          timeout_ms = 500,
+        })
+      end, { desc = "Format file or range (in visual mode)" })
     end,
   },
   {
