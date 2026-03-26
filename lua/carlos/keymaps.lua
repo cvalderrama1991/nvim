@@ -62,13 +62,34 @@ end, { desc = "Copy absolute path" })
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
   callback = function(ev)
+    -- Enable omni completion (optional, but fine to keep)
     vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
-    -- ===== LSP navigation =====
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
-    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "List references" })
-    vim.keymap.set("n", "<leader><space>", vim.lsp.buf.hover, { desc = "Show hover documentation" })
+    -- LSP keymaps (buffer-local)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, {
+      buffer = ev.buf,
+      desc = "Go to definition",
+    })
+
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {
+      buffer = ev.buf,
+      desc = "Go to implementation",
+    })
+
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, {
+      buffer = ev.buf,
+      desc = "List references",
+    })
+
+    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, {
+      buffer = ev.buf,
+      desc = "Go to type definition",
+    })
+
+    -- Hover (use K — standard and reliable)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, {
+      buffer = ev.buf,
+      desc = "Hover documentation",
+    })
   end,
 })
