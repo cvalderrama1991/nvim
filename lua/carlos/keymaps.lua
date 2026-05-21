@@ -9,7 +9,8 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
 -- Delete, Copy and Paste
 vim.keymap.set({ "n", "x" }, "<leader>d", '\"_d', { desc = "Delete without yanking" })
-vim.keymap.set("x", "<leader>p", [["_d]], { desc = "Paste over visual selection (preserve yanked text" })
+-- FIX: Added missing closing parenthesis to description string
+vim.keymap.set("x", "<leader>p", [["_d]], { desc = "Paste over visual selection (preserve yanked text)" })
 
 -- Buffer navigation
 vim.keymap.set("n", "<leader>bn", ":bnext<CR>", { desc = "Next buffer" })
@@ -56,37 +57,44 @@ vim.keymap.set("n", "<leader>pa", function()
   print("Copy path:", path)
 end, { desc = "Copy absolute path" })
 
+-- Handles keymaps and performance-focused autocommands when an LSP server connects to a buffer
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
   callback = function(ev)
-    -- Enable omni completion (optional, but fine to keep)
-    vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+    local bufnr = ev.buf
+    -- Safely get the client instance that just attached
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
-    -- LSP keymaps (buffer-local)
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, {
-      buffer = ev.buf,
-      desc = "Go to definition",
-    })
+    -- Enable omni completion
+    vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
 
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {
-      buffer = ev.buf,
-      desc = "Go to implementation",
-    })
+    -- LSP keymaps (scoped locally to the active buffer)
+    local opts = { buffer = bufnr }
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", opts, { desc = "Go to definition" }))
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, vim.tbl_extend("force", opts, { desc = "Go to implementation" }))
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, vim.tbl_extend("force", opts, { desc = "List references" }))
+    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, vim.tbl_extend("force", opts, { desc = "Go to type definition" }))
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover documentation" }))
 
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, {
-      buffer = ev.buf,
-      desc = "List references",
-    })
+    -- IMPROVEMENT: Highlighting matching variables and references under your cursor.
+    -- This now runs efficiently using CursorHold (pausing) rather than dragging down performance on every movement.
+    if client and client.server_capabilities.documentHighlightProvider then
+      local highlight_group = vim.api.nvim_create_autocmd_group -- fallback or create local group safely
+      local lsp_hl_group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
+      
+      -- Highlight when cursor holds still
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        group = lsp_hl_group,
+        buffer = bufnr,
+        callback = vim.lsp.buf.document_highlight,
+      })
 
-    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, {
-      buffer = ev.buf,
-      desc = "Go to type definition",
-    })
-
-    -- Hover (use K — standard and reliable)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, {
-      buffer = ev.buf,
-      desc = "Hover documentation",
-    })
+      -- Instantly clear highlights as soon as the cursor moves
+      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+        group = lsp_hl_group,
+        buffer = bufnr,
+        callback = vim.lsp.buf.clear_references,
+      })
+    end
   end,
 })

@@ -22,6 +22,6 @@ return {
       },
       open_files_do_not_replace_types = {},
     },
-    lazy = false, -- neo-tree will lazily load itself
+    -- lazy = false, -- neo-tree will lazily load itself
   }
 }

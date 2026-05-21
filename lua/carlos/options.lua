@@ -34,7 +34,7 @@ vim.opt.pumblend = 10                             -- Transparency for popup menu
 vim.opt.winblend = 0                              -- Transparency for floating windows (0 = opaque)
 vim.opt.conceallevel = 0                          -- Don't hide/conceal text (e.g., markdown syntax)
 vim.opt.concealcursor = ""                        -- Don't conceal text in any cursor line mode
-vim.opt.lazyredraw = true                         -- Don't redraw screen during macros for speed
+-- vim.opt.lazyredraw = true                         -- Don't redraw screen during macros for speed
 vim.opt.synmaxcol = 300                           -- Stop syntax highlighting after column 300 (performance)
 
 -- File handling
@@ -55,7 +55,8 @@ vim.opt.backspace = "indent,eol,start"  -- Allow backspace over everything in in
 vim.opt.autochdir = false               -- Don't change working directory to current file
 vim.opt.iskeyword:append("-")           -- Treat hyphens as part of words (useful for CSS, kebab-case)
 vim.opt.path:append("**")               -- Search recursively down into subfolders for :find
-vim.opt.selection = "exclusive"         -- Visual selection doesn't include the character under cursor at end
+-- vim.opt.selection = "exclusive"         -- Visual selection doesn't include the character under cursor at end
+vim.opt.selection = "inclusive"
 vim.opt.mouse = "a"                     -- Enable mouse support in all modes
 vim.opt.clipboard:append("unnamedplus") -- Use system clipboard (+ register) by default
 vim.opt.modifiable = true               -- Allow buffer to be modified

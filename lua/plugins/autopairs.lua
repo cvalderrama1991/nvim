@@ -1,10 +1,9 @@
 return {
   'windwp/nvim-autopairs',
   event = "InsertEnter",
-  config = true,
   opts = {
-    check_ts = true
+    check_ts = true,
+    fast_wrap = {},
+    disable_filetype = { "TelescopePrompt", "spectre_panel" },
   }
-  -- use opts = {} for passing setup options
-  -- this is equivalent to setup({}) function
 }
