@@ -65,7 +65,7 @@ vim.opt.fileencoding = "utf-8"          -- File encoding when writing
 
 -- Folding settings
 vim.opt.foldmethod = "expr"                         -- Use expression-based folding (required for Treesitter)
-vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Treesitter-powered folding
+-- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Treesitter-powered folding
 vim.opt.foldlevel = 99                              -- Start with all folds open
 
 -- Split behavior

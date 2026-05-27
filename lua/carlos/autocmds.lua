@@ -55,3 +55,10 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
     vim.opt_local.cursorline = false
   end,
 })
+
+-- Neovim 0.12 natively syntax highlighting
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function()
+    pcall(vim.treesitter.start)
+  end,
+})
