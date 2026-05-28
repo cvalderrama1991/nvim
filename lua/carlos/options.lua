@@ -47,6 +47,7 @@ vim.opt.timeoutlen = 500    -- Time to wait for a mapped sequence to complete (m
 vim.opt.ttimeoutlen = 0     -- Disable timeout for key codes (immediate escape)
 vim.opt.autoread = true     -- Auto-reload file if changed outside Vim
 vim.opt.autowrite = false   -- Don't auto-save before commands like :make
+vim.opt.confirm = true
 
 -- Behavior settings
 vim.opt.hidden = true                   -- Allow switching buffers without saving
@@ -58,7 +59,8 @@ vim.opt.path:append("**")               -- Search recursively down into subfolde
 -- vim.opt.selection = "exclusive"         -- Visual selection doesn't include the character under cursor at end
 vim.opt.selection = "inclusive"
 vim.opt.mouse = "a"                     -- Enable mouse support in all modes
-vim.opt.clipboard:append("unnamedplus") -- Use system clipboard (+ register) by default
+-- vim.opt.clipboard:append("unnamedplus") -- Use system clipboard (+ register) by default
+vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end) -- Modern way to sync clipboards
 vim.opt.modifiable = true               -- Allow buffer to be modified
 vim.opt.encoding = "utf-8"              -- Internal encoding
 vim.opt.fileencoding = "utf-8"          -- File encoding when writing
@@ -75,3 +77,11 @@ vim.opt.splitright = true -- New vertical splits open to the right of current wi
 -- Basic spell checking
 vim.opt.spell = true
 vim.opt.spelllang = { "en_us" }
+
+-- Vim Diagnostics
+-- vim.diagnostic.config({
+--   severity_sort = true,
+--   update_in_insert = false,
+--   float = {source = 'if_many'},
+--   jump = {float = true}
+-- })
